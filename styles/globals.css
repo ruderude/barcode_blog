@@ -15,6 +15,26 @@ a {
   box-sizing: border-box;
 }
 
+.mt-1 {
+  margin-top: 10px;
+}
+
+.mt-2 {
+  margin-top: 20px;
+}
+
+.mt-3 {
+  margin-top: 30px;
+}
+
+.mt-4 {
+  margin-top: 40px;
+}
+
+.mt-5 {
+  margin-top: 50px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
