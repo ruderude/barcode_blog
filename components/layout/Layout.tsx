@@ -8,7 +8,7 @@ type Props = {
 
 const Layout: NextPage<Props> = ({ children }) => {
   return (
-    <div>
+    <div className='all_view'>
       <Header />
       <main>{children}</main>
       <Footer />

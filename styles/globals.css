@@ -15,6 +15,13 @@ a {
   box-sizing: border-box;
 }
 
+.all_view {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
 .mt-1 {
   margin-top: 10px;
 }

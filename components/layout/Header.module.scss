@@ -1,7 +1,7 @@
 
 .wrapper_pc_nav {
   nav {
-    // background-color: #555;
+    background: #fdfd7d;
     height: 40px;
     display: flex;
     align-items: flex-end;
@@ -16,12 +16,12 @@
     vertical-align: bottom;
   }
 
-    nav li {
+  nav li {
     display: table-cell;
     min-width: 50px;
   }
 
-    nav span {
+  nav span {
     display: block;
     width: 100%;
     text-decoration: none;
@@ -29,11 +29,11 @@
     padding-bottom: 5px;
   }
 
-    nav li.current {
+  nav li.current {
     border-bottom: 3px solid #92D050;
   }
 
-    nav li:hover {
+  nav li:hover {
     color: #E7DA66;
     border-bottom: 3px solid #F0E475;
   }
@@ -60,7 +60,7 @@
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      background: yellow;
+      background: #fafa65;
       /*丸のスタート位置と形状*/
       transform: scale(0);/*scaleをはじめは0に*/
       left:-50px;

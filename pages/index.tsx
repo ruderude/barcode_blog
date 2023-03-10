@@ -13,6 +13,9 @@ const Home: NextPage = () => {
       <Link href="/profile">
         Go to プロフィール
       </Link>
+      <div className={styles.test}>
+        test
+      </div>
     </>
   )
 }
