@@ -8,7 +8,9 @@ import styles from '../styles/Home.module.css'
 const Home: NextPage = () => {
   return (
     <>
-      Home
+      <h1>
+        Home
+      </h1>
       <br />
       <Link href="/profile">
         Go to プロフィール
