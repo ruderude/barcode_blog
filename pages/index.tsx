@@ -11,6 +11,12 @@ const Home: NextPage = () => {
       <h1>
         Home
       </h1>
+      <h1>
+        Home
+      </h1>
+      <h1>
+        Home
+      </h1>
       <br />
       <Link href="/profile">
         Go to プロフィール
