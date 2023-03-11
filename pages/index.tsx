@@ -1,28 +1,40 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import Layout from '../components/layout/Layout'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
+import { client } from "../libs/client"
 
-const Home: NextPage = () => {
+export const getStaticProps = async () => {
+  console.log("API_KEY", process.env.API_KEY)
+  const data = await client.get({ endpoint: "blog" })
+  console.log(data)
+
+  return {
+    props: {
+      blogs: data.contents,
+    },
+  }
+}
+
+const Home: NextPage<any> = ({ blogs }) => {
+
   return (
     <>
       <h1>
         Home
       </h1>
-      <h1>
-        Home
-      </h1>
-      <h1>
-        Home
-      </h1>
+
       <br />
-      <Link href="/profile">
-        Go to プロフィール
-      </Link>
-      <div className={styles.test}>
-        test
+
+      <div>
+        <ul>
+          {blogs.map((blog: any) => (
+            <li key={blog.id}>
+              <Link href={`/blog/${blog.id}`}>{blog.title}</Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   )
