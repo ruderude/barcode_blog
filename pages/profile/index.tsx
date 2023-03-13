@@ -25,8 +25,11 @@ const Profile: NextPage<any> = ({ categories, tags }) => {
 
       <div className="container">
         <div className="main">
-          <h1>プロフィール</h1>
-          <br />
+
+          <h2 className='page_title'>
+            プロフィール
+          </h2>
+          
         </div>
 
         <SideBar categories={categories} tags={tags} />

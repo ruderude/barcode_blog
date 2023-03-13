@@ -24,7 +24,11 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
 
       <div className="container">
         <div className="main">
-          <h1>お問い合わせ</h1>
+          
+          <h2 className='page_title'>
+            お問い合わせ
+          </h2>
+
         </div>
 
         <SideBar categories={categories} tags={tags} />

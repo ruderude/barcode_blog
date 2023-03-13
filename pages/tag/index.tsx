@@ -27,6 +27,11 @@ const Tags: NextPage<any> = ({ blogs, categories, tags }) => {
 
       <div className="container">
         <div className="main">
+
+          <h2 className='page_title'>
+            タグ一覧
+          </h2>
+
           <div>
             <ul>
               {tags.map((tag: any) => (
