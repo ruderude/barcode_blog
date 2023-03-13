@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from "next/link"
 import { client } from "../../libs/client"
 import SideBar from '../../components/layout/SideBar'
+import Card from '../../components/elements/Card'
 import styles from './Category.module.scss'
 import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 
@@ -81,14 +82,12 @@ const CategoryId: NextPage<any> = ({ blogs, categories, tags, category }) => {
             ))}
           </div>
 
-          <div>
-            <ul>
-              {blogs.map((blog: any) => (
-                <li key={blog.id}>
-                  <Link href={`/blog/${blog.id}`}>{blog.title}</Link>
-                </li>
-              ))}
-            </ul>
+          <div className={styles.card_container}>
+            {blogs.map((blog: any) => (
+              <div className={styles.card_box} key={blog.id}>
+                <Card blog={blog} />
+              </div>
+            ))}
           </div>
 
         </div>
