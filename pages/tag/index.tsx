@@ -6,6 +6,7 @@ import { client } from "../../libs/client"
 import SideBar from '../../components/layout/SideBar'
 import Card from '../../components/elements/Card'
 import styles from './Tags.module.scss'
+import { FaTags } from 'react-icons/fa'
 
 const Tags: NextPage<any> = ({ blogs, categories, tags }) => {
   const title = `バーコード・ブログ: タグ一覧`
@@ -32,14 +33,16 @@ const Tags: NextPage<any> = ({ blogs, categories, tags }) => {
             タグ一覧
           </h2>
 
-          <div>
-            <ul>
-              {tags.map((tag: any) => (
-                <li key={tag.id}>
-                  <Link href={`/tag/${tag.id}`}>{tag.name}</Link>
-                </li>
-              ))}
-            </ul>
+          <div className={styles.tags_parent}>
+            {tags.map((tag: any) => (
+              <div key={tag.id}>
+                <Link href={`/tag/${tag.id}`}>
+                  <span className={styles.tags_children} suppressHydrationWarning>
+                    <FaTags color={'red'} />&nbsp;{tag.name}
+                  </span>
+                </Link>
+              </div>
+            ))}
           </div>
 
           <div className={styles.card_container}>

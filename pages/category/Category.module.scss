@@ -33,11 +33,11 @@
 .categories_parent {
   display: flex;
   flex-wrap: wrap;
+  gap: 12px 8px;
 
   .categories_children {
     background-color: rgba(251, 243, 4, 0.5);
     padding: 0.3rem 1rem;
-    margin: 4px 8px;
     border-radius: 8px;
   }
 
