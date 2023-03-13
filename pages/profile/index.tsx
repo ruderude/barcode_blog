@@ -1,24 +1,51 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from './profile.module.scss'
+import { client } from "../../libs/client"
+import SideBar from '../../components/layout/SideBar'
+import styles from './Profile.module.scss'
 
-const Profile: NextPage = () => {
+const Profile: NextPage<any> = ({ categories, tags }) => {
+  const title = `バーコード・ブログ: プロフィール`
+  const description = `バーコード・ブログ: プロフィール`
+
   return (
     <>
       <Head>
-        <title>
-          訓志のブログ:プロフィール
-        </title>
-        <meta name="description" content="訓志のブログ:プロフィール。" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
       </Head>
 
-      <h1>プロフィール</h1>
-      <div className={styles.test}>
-        fdkfjdsklaf;dfk
+      <header className={styles.hero}>
+        <div className={styles.bg}>
+          <h1>Profile</h1>
+          <p>プロフィール</p>
+        </div>
+      </header>
+
+      <div className="container">
+        <div className="main">
+          <h1>プロフィール</h1>
+          <br />
+        </div>
+
+        <SideBar categories={categories} tags={tags} />
       </div>
+      
     </>
   )
+}
+
+export const getStaticProps = async () => {
+  const categoryData = await client.get({ endpoint: "categories" })
+  const tagData = await client.get({ endpoint: "tags" })
+
+  return {
+    props: {
+      categories: categoryData.contents,
+      tags: tagData.contents,
+    },
+  }
 }
 
 export default Profile

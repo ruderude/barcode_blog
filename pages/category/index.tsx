@@ -2,15 +2,15 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.scss'
-import { client } from "../libs/client"
-import SideBar from '../components/layout/SideBar'
-import Card from '../components/elements/Card'
+import { client } from "../../libs/client"
+import SideBar from '../../components/layout/SideBar'
+import Card from '../../components/elements/Card'
+import styles from './Category.module.scss'
+import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 
-const Home: NextPage<any> = ({ blogs, categories, tags }) => {
-
-  const title = `バーコード・ブログ: トップページ、ブログ一覧`
-  const description = `バーコード・ブログ: トップページ、ブログ一覧`
+const Category: NextPage<any> = ({ blogs, categories, tags }) => {
+  const title = `バーコード・ブログ: カテゴリー一覧`
+  const description = `バーコード・ブログ: カテゴリー一覧`
 
   return (
     <>
@@ -21,8 +21,8 @@ const Home: NextPage<any> = ({ blogs, categories, tags }) => {
 
       <header className={styles.hero}>
         <div className={styles.bg}>
-          <h1>BarCode Blog</h1>
-          <p>40歳デビューした厨二病プログラマの日記</p>
+          <h1>Categories</h1>
+          <p>カテゴリー一覧</p>
         </div>
       </header>
 
@@ -30,8 +30,20 @@ const Home: NextPage<any> = ({ blogs, categories, tags }) => {
         <div className="main">
 
           <h2>
-            ブログ一覧
+            カテゴリー一覧
           </h2>
+
+          <div className={styles.categories_parent}>
+            {categories.map((category: any) => (
+              <div key={category.id}>
+                <Link href={`/category/${category.id}`}>
+                  <span className={styles.categories_children} suppressHydrationWarning>
+                    <BsFillBookmarkHeartFill color={'red'} />&nbsp;{category.name}
+                  </span>
+                </Link>
+              </div>
+            ))}
+          </div>
 
           <div className={styles.card_container}>
             {blogs.map((blog: any) => (
@@ -40,11 +52,12 @@ const Home: NextPage<any> = ({ blogs, categories, tags }) => {
               </div>
             ))}
           </div>
-
+          
         </div>
 
         <SideBar categories={categories} tags={tags} />
       </div>
+
     </>
   )
 }
@@ -53,9 +66,6 @@ export const getStaticProps = async () => {
   const data = await client.get({ endpoint: "blog" })
   const categoryData = await client.get({ endpoint: "categories" })
   const tagData = await client.get({ endpoint: "tags" })
-  console.log(data)
-  // console.log(categoryData)
-  // console.log(tagData)
 
   return {
     props: {
@@ -66,4 +76,4 @@ export const getStaticProps = async () => {
   }
 }
 
-export default Home
+export default Category
