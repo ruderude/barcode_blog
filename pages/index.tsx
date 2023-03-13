@@ -29,7 +29,7 @@ const Home: NextPage<any> = ({ blogs, categories, tags }) => {
       <div className="container">
         <div className="main">
 
-          <h2>
+          <h2 className='page_title'>
             ブログ一覧
           </h2>
 

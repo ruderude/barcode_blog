@@ -34,6 +34,19 @@
   flex-wrap: wrap;
 }
 
+// タグ一覧
+.tags_parent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 8px;
+
+  .tags_children {
+    background-color: rgba(251, 243, 4, 0.5);
+    padding: 0.3rem 1rem;
+    border-radius: 8px;
+  }
+}
+
 .card_box {
   width: 33.33%;
   box-sizing: border-box;
