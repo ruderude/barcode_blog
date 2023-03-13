@@ -29,6 +29,10 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
             お問い合わせ
           </h2>
 
+          <div>
+            テスト
+          </div>
+
         </div>
 
         <SideBar categories={categories} tags={tags} />
