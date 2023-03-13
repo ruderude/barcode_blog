@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react"
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { client } from "../../libs/client"
@@ -7,9 +8,16 @@ import styles from './Blog.module.scss'
 
 const BlogId: NextPage<any> = ({ blog, categories, tags }) => {
 
-  const createdAt = format(new Date(blog.createdAt), 'yyyy年MM月dd日')
   const title = `バーコード・ブログ: ${blog.title}`
   const description = `バーコード・ブログ: ${blog.title}`
+
+  const [createdAt, setCreatedAt] = useState<string>()
+  const [updatedAt, setUpdatedAt] = useState<string>()
+
+  useEffect(() => {
+    setCreatedAt(format(new Date(blog.createdAt), 'yyyy年MM月dd日'))
+    setUpdatedAt(format(new Date(blog.updatedAt), 'yyyy年MM月dd日'))
+  }, [blog.createdAt, blog.updatedAt])
 
   return (
     <>
@@ -20,7 +28,8 @@ const BlogId: NextPage<any> = ({ blog, categories, tags }) => {
 
       <div className="container">
         <div className="main">
-          <h4>{ createdAt }</h4>
+          <h4>作成日時：{ createdAt }</h4>
+          <h4>更新日時：{ updatedAt }</h4>
           <h1>{blog.title}</h1>
           <p>{blog.category && blog.category.name}</p>
           <div

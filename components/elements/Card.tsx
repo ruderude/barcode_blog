@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react"
 import Link from 'next/link'
 import Image from 'next/image'
 import { format } from 'date-fns'
@@ -6,7 +7,14 @@ import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 import { FaTags } from 'react-icons/fa'
 
 const Card = ({ blog }: { blog: any }) => {
-  console.log('blog', blog)
+  // console.log('blog', blog)
+  const [createdAt, setCreatedAt] = useState<string>()
+  const [updatedAt, setUpdatedAt] = useState<string>()
+
+  useEffect(() => {
+    setCreatedAt(format(new Date(blog.createdAt), 'yyyy年MM月dd日'))
+    setUpdatedAt(format(new Date(blog.updatedAt), 'yyyy年MM月dd日'))
+  }, [blog.createdAt, blog.updatedAt])
 
   return (
     <>
@@ -29,8 +37,8 @@ const Card = ({ blog }: { blog: any }) => {
               <p className={styles.card__title} style={{wordWrap: 'break-word'}}>{blog.title}</p>
             </div>
             <div className={styles.card__body}>
-              <div className={styles.card__text2}>作成日時：{format(new Date(blog.createdAt), 'yyyy年MM月dd日')}</div>
-              <div className={styles.card__text2}>更新日時：{format(new Date(blog.updatedAt), 'yyyy年MM月dd日')}</div>
+              <div className={styles.card__text2}>作成日時：{createdAt}</div>
+              <div className={styles.card__text2}>更新日時：{updatedAt}</div>
             </div>
             <div className={styles.card__footer}>
               <div>
