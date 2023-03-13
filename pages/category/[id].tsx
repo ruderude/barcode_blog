@@ -4,6 +4,7 @@ import Link from "next/link"
 import { client } from "../../libs/client"
 import SideBar from '../../components/layout/SideBar'
 import styles from './Category.module.scss'
+import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 
 const CategoryId: NextPage<any> = ({ blogs, categories, tags, category }) => {
   const title = `バーコード・ブログ: カテゴリー【${category.name}】`
@@ -25,6 +26,11 @@ const CategoryId: NextPage<any> = ({ blogs, categories, tags, category }) => {
 
       <div className="container">
         <div className="main">
+
+          <h2 className='page_title'>
+            カテゴリー：{category.name}
+          </h2>
+
           <p>ブログコンテンツがありません</p>
         </div>
 
@@ -49,6 +55,31 @@ const CategoryId: NextPage<any> = ({ blogs, categories, tags, category }) => {
 
       <div className="container">
         <div className="main">
+
+          <h2 className='page_title'>
+            カテゴリー：{category.name}
+          </h2>
+
+          <div className={styles.categories_parent}>
+            {categories.map((item: any) => (
+              category.id === item.id ?
+              <div key={item.id}>
+                <Link href={`/category/${item.id}`}>
+                  <span className={styles.categories_children} suppressHydrationWarning>
+                    <BsFillBookmarkHeartFill color={'green'} />&nbsp;{item.name}
+                  </span>
+                </Link>
+              </div>
+              :
+              <div key={item.id}>
+                <Link href={`/category/${item.id}`}>
+                  <span className={styles.categories_children} suppressHydrationWarning>
+                    <BsFillBookmarkHeartFill color={'red'} />&nbsp;{item.name}
+                  </span>
+                </Link>
+              </div>
+            ))}
+          </div>
 
           <div>
             <ul>
