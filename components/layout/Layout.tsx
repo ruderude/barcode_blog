@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import Header from './Header'
 import Footer from './Footer'
+import SideBar from './SideBar'
+import styles from './Layout.module.scss'
 
 type Props = {
   children?: React.ReactNode

@@ -1,20 +1,49 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { client } from "../../libs/client"
+import SideBar from '../../components/layout/SideBar'
+import styles from './Contact.module.scss'
 
-const Contact: NextPage = () => {
+const Contact: NextPage<any> = ({ categories, tags }) => {
+  const title = `バーコード・ブログ: お問い合わせ`
+  const description = `バーコード・ブログ: お問い合わせ`
   return (
     <>
       <Head>
-        <title>
-          訓志のブログ:お問い合わせ
-        </title>
-        <meta name="description" content="訓志のブログ:お問い合わせ" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
       </Head>
 
-      <h1>お問い合わせ</h1>
+      <header className={styles.hero}>
+        <div className={styles.bg}>
+          <h1>Contact</h1>
+          <p>お問い合わせ</p>
+        </div>
+      </header>
+
+      <div className="container">
+        <div className="main">
+          <h1>お問い合わせ</h1>
+        </div>
+
+        <SideBar categories={categories} tags={tags} />
+      </div>
+
     </>
   )
+}
+
+export const getStaticProps = async () => {
+  const categoryData = await client.get({ endpoint: "categories" })
+  const tagData = await client.get({ endpoint: "tags" })
+
+  return {
+    props: {
+      categories: categoryData.contents,
+      tags: tagData.contents,
+    },
+  }
 }
 
 export default Contact

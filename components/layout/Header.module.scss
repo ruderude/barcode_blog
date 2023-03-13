@@ -2,7 +2,7 @@
 .wrapper_pc_nav {
   nav {
     background: #fdfd7d;
-    height: 40px;
+    height: 46px;
     display: flex;
     align-items: flex-end;
   }
@@ -30,12 +30,12 @@
   }
 
   nav li.current {
-    border-bottom: 3px solid #92D050;
+    border-bottom: 3px solid red;
   }
 
   nav li:hover {
-    color: #E7DA66;
-    border-bottom: 3px solid #F0E475;
+    color: #92D050;
+    border-bottom: 3px solid #92D050;
   }
 }
 
@@ -142,8 +142,8 @@
     /*========= ボタンのためのCSS ===============*/
     .openbtn1 {
       position:fixed;
-      top:10px;
-      right: 10px;
+      top:0px;
+      right: 4px;
       z-index: 9999;/*ボタンを最前面に*/
       cursor: pointer;
       width: 60px;

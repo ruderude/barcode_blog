@@ -1,5 +1,5 @@
 .hero {
-  background-image: url("/images/top1.jpg");
+  background-image: url("/images/category1.jpg");
   background-size: cover;
   background-position: center;
   height: 40vh;
@@ -27,6 +27,24 @@
   .bg {
     background-color: rgba(133, 1, 1, 0.5);
   }
+}
+
+// カテゴリー一覧
+.categories_parent {
+  display: flex;
+  flex-wrap: wrap;
+
+  .categories_children {
+    background-color: rgba(251, 243, 4, 0.5);
+    padding: 0.3rem 1rem;
+    margin: 4px 8px;
+    border-radius: 8px;
+  }
+
+  // .categories_children:hover {
+  //   transform: scale(1.1);
+  //   transition: 0.3s;
+  // }
 }
 
 .card_container {
