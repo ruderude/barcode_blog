@@ -5,6 +5,8 @@ import { client } from "../../libs/client"
 import { format } from 'date-fns'
 import SideBar from '../../components/layout/SideBar'
 import styles from './Blog.module.scss'
+import { BsFillBookmarkHeartFill } from 'react-icons/bs'
+import { FaTags } from 'react-icons/fa'
 
 const BlogId: NextPage<any> = ({ blog, categories, tags }) => {
 
@@ -28,15 +30,24 @@ const BlogId: NextPage<any> = ({ blog, categories, tags }) => {
 
       <div className="container">
         <div className="main">
-          <h4>作成日時：{ createdAt }</h4>
-          <h4>更新日時：{ updatedAt }</h4>
-          <h1>{blog.title}</h1>
-          <p>{blog.category && blog.category.name}</p>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: `${blog.body}`,
-            }}
-          />
+          <div className={styles.blog}>
+            <div className={styles.date}>作成日時：{ createdAt }</div>
+            <div className={styles.date}>更新日時：{ updatedAt }</div>
+            <div className={styles.category}><BsFillBookmarkHeartFill color={'red'} />&nbsp;{blog.category && blog.category.name}</div>
+            <div className={styles.tags_parent}>
+              {blog.tags &&
+                blog.tags.map((tag: any) => (
+                  <div className={styles.tags_children} key={tag.id}>
+                    <FaTags color={'red'} />&nbsp;{tag.name}</div>
+              ))}
+            </div>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: `${blog.body}`,
+              }}
+            />
+          </div>
+          
         </div>
 
         <SideBar categories={categories} tags={tags} />
