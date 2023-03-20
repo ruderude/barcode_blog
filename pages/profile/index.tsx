@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { client } from "../../libs/client"
 import SideBar from '../../components/layout/SideBar'
 import styles from './Profile.module.scss'
+import { ImPacman } from 'react-icons/im'
 
 const Profile: NextPage<any> = ({ categories, tags }) => {
   const title = `バーコード・ブログ: プロフィール`
@@ -29,7 +30,14 @@ const Profile: NextPage<any> = ({ categories, tags }) => {
           <h2 className='page_title'>
             プロフィール
           </h2>
-          
+
+          <div className={styles.profile}>
+            <div className={styles.me}>
+              <ImPacman />&nbsp;
+              39歳からプログラミング学習を開始して40歳からプログラマになりました。
+              1979年生まれの訓志といいます。
+            </div>
+          </div>
         </div>
 
         <SideBar categories={categories} tags={tags} />

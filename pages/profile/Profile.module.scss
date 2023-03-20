@@ -29,6 +29,15 @@
   }
 }
 
+.profile {
+  .me {
+    width: 80%;
+    margin: 0 auto;
+    background-color: honeydew;
+    padding: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
     height: 30vh;

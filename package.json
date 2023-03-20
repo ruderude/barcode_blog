@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.10.0",
     "babel-plugin-styled-components": "^2.0.7",
     "date-fns": "^2.29.3",
     "microcms-js-sdk": "^2.3.2",
