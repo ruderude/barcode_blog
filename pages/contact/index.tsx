@@ -27,27 +27,26 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>()
 
-  const [formData, setFormData] = useState({
-    toName: '',
-    toEmail: '',
-    message: '',
-  })
+  console.log('errors', errors)
 
-  const { toName, toEmail, message } = formData
+  // const [formData, setFormData] = useState({
+  //   toName: '',
+  //   toEmail: '',
+  //   message: '',
+  // })
+
+  // const { toName, toEmail, message } = formData
   console.log("watch:", watch("to_name"));
 
   const sendForm: SubmitHandler<Inputs> = (data) => {
-    console.log('sendForm')
-    console.log("onSubmit:", data);
-    return
     // e.preventDefault()
 
     const params = {
-      to_name: toName,
-      to_email: toEmail,
-      message: message,
+      to_name: data.to_name,
+      to_email: data.to_email,
+      message: data.message,
     }
 
     emailjs.send(
@@ -98,36 +97,22 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
                         type="text"
                         placeholder="山田 太郎"
                         {...register("to_name", {
-                          required: true,
-                          pattern: /^[A-Za-z]+$/i,
-                          maxLength: 20,
+                          required: {
+                            value: true,
+                            message: '入力が必須の項目です',
+                          },
+                          maxLength: {
+                            value: 20,
+                            message: '20文字以下で入力してください',
+                          },
                         })}
                       />
-                      {/* {errors.to_name?.type === "required" && (
-                        <span>This field is required</span>
-                      )}
-                      {errors.to_name?.type === "pattern" && errors.to_name?.types?.includes("pattern") && (
-                        <span>Name must contain alphabets only</span>
-                      )}
-                      {errors.to_name?.type === "maxLength" && errors.to_name?.types?.includes("maxLength") && (
-                        <span>Name must be less than or equal to 20 characters</span>
-                      )} */}
-
                       {errors.to_name?.type === 'required' && (
-                        <div className={styles.error}>必須項目です。</div>
+                        <div className={styles.error}>{ errors.to_name?.message }</div>
                       )}
                       {errors.to_name?.type === 'maxLength' && (
-                        <div className={styles.error}>20文字以下で入力してください。</div>
+                        <div className={styles.error}>{ errors.to_name?.message }</div>
                       )}
-                      {errors.to_name?.type === 'pattern' && (
-                        <div className={styles.error}>アルファベットのみ入力してください。</div>
-                      )}
-
-                      {/* <ul>
-                        {errors.to_name && Object.keys(errors.to_name).map(key => (
-                          <li key={key}>{errors.to_name[key].message}</li>
-                        ))}
-                      </ul> */}
                     </td>
                   </tr>
 
@@ -136,8 +121,33 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
                       <label htmlFor="to_email">メールアドレス&nbsp;<span className={styles.badge}>必須</span></label>
                     </td>
                     <td className={styles.form_body}>
-                      <input type="text" name="to_email" id="to_email" placeholder="info@email.com" />
-                      <div className={styles.error} id="to_email_error">メールアドレスを入力してください</div>
+                      <input
+                        type="text"
+                        placeholder="info@email.com"
+                        {...register("to_email", {
+                          required: {
+                            value: true,
+                            message: '入力が必須の項目です',
+                          },
+                          pattern: {
+                            value: /\S+@\S+\.\S+/,
+                            message: "メールアドレスの形式が違います"
+                          },
+                          maxLength: {
+                            value: 150,
+                            message: '150文字以下で入力してください',
+                          },
+                        })}
+                      />
+                      {errors.to_email?.type === 'required' && (
+                        <div className={styles.error}>{ errors.to_email?.message }</div>
+                      )}
+                      {errors.to_email?.type === 'pattern' && (
+                        <div className={styles.error}>{ errors.to_email?.message }</div>
+                      )}
+                      {errors.to_email?.type === 'maxLength' && (
+                        <div className={styles.error}>{ errors.to_email?.message }</div>
+                      )}
                     </td>
                   </tr>
 
@@ -146,8 +156,25 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
                       <label>本文&nbsp;<span className={styles.badge}>必須</span></label>
                     </td>
                     <td className={styles.form_body}>
-                      <textarea name="message" id="message" placeholder="問い合わせ内容・・・" />
-                      <div className={styles.error} id="message_error">本文を入力してください</div>
+                      <textarea
+                        placeholder="問い合わせ内容・・・"
+                        {...register("message", {
+                          required: {
+                            value: true,
+                            message: '入力が必須の項目です',
+                          },
+                          maxLength: {
+                            value: 2000,
+                            message: '2000文字以下で入力してください',
+                          },
+                        })}
+                      />
+                      {errors.message?.type === 'required' && (
+                        <div className={styles.error}>{ errors.message?.message }</div>
+                      )}
+                      {errors.message?.type === 'maxLength' && (
+                        <div className={styles.error}>{ errors.message?.message }</div>
+                      )}
                     </td>
                   </tr>
                 </tbody>
