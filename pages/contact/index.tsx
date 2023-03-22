@@ -7,6 +7,7 @@ import SideBar from '../../components/layout/SideBar'
 import styles from './Contact.module.scss'
 import emailjs from '@emailjs/browser'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { toast } from "react-toastify";
 
 interface Inputs {
   to_name: string
@@ -31,7 +32,18 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
   } = useForm<Inputs>()
 
   console.log('errors', errors)
-  console.log("watch:", watch("to_name"));
+  console.log("watch:", watch("to_name"))
+
+  const clearForm = () => {
+    const to_name = document.getElementById('to_name') as HTMLInputElement
+    const to_email = document.getElementById('to_email') as HTMLInputElement
+    const message = document.getElementById('message') as HTMLInputElement
+    const check = document.getElementById('check') as HTMLInputElement
+    to_name.value = ''
+    to_email.value = ''
+    message.value = ''
+    check.value = ''
+  }
 
   const sendForm: SubmitHandler<Inputs> = (data) => {
     // e.preventDefault()
@@ -39,6 +51,7 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
     const check = data.check
     if (check) {
       console.log('check', check)
+      toast('メール送信に失敗しました！')
       return
     }
 
@@ -55,10 +68,11 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
       publicKey
     )
       .then((result) => {
-          console.log(result.text);
+        console.log(result.text);
+        toast.success('お問い合わせメールを送信しました！')
       }, (error) => {
         console.log(error.text);
-        
+        toast.error('メール送信に失敗しました！')
       });
   };
   
@@ -93,6 +107,7 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
                     </td>
                     <td className={styles.form_body}>
                       <input
+                        id="to_name"
                         type="text"
                         placeholder="山田 太郎"
                         {...register("to_name", {
@@ -121,6 +136,7 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
                     </td>
                     <td className={styles.form_body}>
                       <input
+                        id="to_email"
                         type="text"
                         placeholder="info@email.com"
                         {...register("to_email", {
@@ -156,6 +172,7 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
                     </td>
                     <td className={styles.form_body}>
                       <textarea
+                        id="message"
                         placeholder="問い合わせ内容・・・"
                         {...register("message", {
                           required: {
@@ -181,6 +198,7 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
 
               <div className={styles.bottun_area}>
                 <input
+                  id="check"
                   type="text"
                   className={styles.hidden}
                   {...register("check", {
