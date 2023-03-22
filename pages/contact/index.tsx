@@ -12,15 +12,16 @@ interface Inputs {
   to_name: string
   to_email: string
   message: string
+  check: string | null
 }
 
 const Contact: NextPage<any> = ({ categories, tags }) => {
   const title = `バーコード・ブログ: お問い合わせ`
   const description = `バーコード・ブログ: お問い合わせ`
 
-  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? ''
-  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? ''
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? ''
+  const serviceId = 'service_2s2t3jx'
+  const templateId = 'template_2ri2i36'
+  const publicKey = 'SUcGo0EDTQpTkKSXM'
 
   const {
     register,
@@ -30,18 +31,16 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
   } = useForm<Inputs>()
 
   console.log('errors', errors)
-
-  // const [formData, setFormData] = useState({
-  //   toName: '',
-  //   toEmail: '',
-  //   message: '',
-  // })
-
-  // const { toName, toEmail, message } = formData
   console.log("watch:", watch("to_name"));
 
   const sendForm: SubmitHandler<Inputs> = (data) => {
     // e.preventDefault()
+    console.log('data', data)
+    const check = data.check
+    if (check) {
+      console.log('check', check)
+      return
+    }
 
     const params = {
       to_name: data.to_name,
@@ -181,7 +180,15 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
               </table>
 
               <div className={styles.bottun_area}>
-                <input type="hidden" name="from_name" value="バーコード・ブログだよ" />
+                <input
+                  type="text"
+                  className={styles.hidden}
+                  {...register("check", {
+                    maxLength: {
+                      value: 100,
+                      message: '100文字以下で入力してください',
+                    },
+                  })}/>
                 <button type="submit" className={styles.submit_button} id="submit">
                   送信する
                 </button>
