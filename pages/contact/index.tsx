@@ -51,7 +51,7 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
     const check = data.check
     if (check) {
       console.log('check', check)
-      toast('メール送信に失敗しました！')
+      toast.error('メール送信に失敗しました！')
       return
     }
 
@@ -69,7 +69,8 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
     )
       .then((result) => {
         console.log(result.text);
-        toast.success('お問い合わせメールを送信しました！')
+        toast('お問い合わせメールを送信しました！')
+        clearForm()
       }, (error) => {
         console.log(error.text);
         toast.error('メール送信に失敗しました！')
