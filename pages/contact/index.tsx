@@ -16,15 +16,9 @@ interface Inputs {
   check: string | null
 }
 
-const Contact: NextPage<any> = ({ categories, tags, publicKey }) => {
+const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templateId }) => {
   const title = `バーコード・ブログ: お問い合わせ`
   const description = `バーコード・ブログ: お問い合わせ`
-
-  console.log('publicKey', publicKey)
-
-  const serviceId = 'service_2s2t3jx'
-  const templateId = 'template_2ri2i36'
-  // const publicKey = 'SUcGo0EDTQpTkKSXM'
 
   const {
     register,
@@ -48,8 +42,7 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey }) => {
   }
 
   const sendForm: SubmitHandler<Inputs> = (data) => {
-    // e.preventDefault()
-    console.log('data', data)
+    // console.log('data', data)
     const check = data.check
     if (check) {
       console.log('check', check)
@@ -231,13 +224,17 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey }) => {
 export const getStaticProps = async () => {
   const categoryData = await client.get({ endpoint: "categories" })
   const tagData = await client.get({ endpoint: "tags" })
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+  const publicKey = process.env.EMAILJS_PUBLIC_KEY
+  const serviceId = process.env.EMAILJS_SERVICE_ID
+  const templateId = process.env.EMAILJS_TEMPLATE_ID
 
   return {
     props: {
       categories: categoryData.contents,
       tags: tagData.contents,
-      publicKey: publicKey,
+      publicKey,
+      serviceId,
+      templateId,
     },
   }
 }
