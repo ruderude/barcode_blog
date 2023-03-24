@@ -16,13 +16,15 @@ interface Inputs {
   check: string | null
 }
 
-const Contact: NextPage<any> = ({ categories, tags }) => {
+const Contact: NextPage<any> = ({ categories, tags, publicKey }) => {
   const title = `バーコード・ブログ: お問い合わせ`
   const description = `バーコード・ブログ: お問い合わせ`
 
+  console.log('publicKey', publicKey)
+
   const serviceId = 'service_2s2t3jx'
   const templateId = 'template_2ri2i36'
-  const publicKey = 'SUcGo0EDTQpTkKSXM'
+  // const publicKey = 'SUcGo0EDTQpTkKSXM'
 
   const {
     register,
@@ -229,11 +231,13 @@ const Contact: NextPage<any> = ({ categories, tags }) => {
 export const getStaticProps = async () => {
   const categoryData = await client.get({ endpoint: "categories" })
   const tagData = await client.get({ endpoint: "tags" })
+  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
 
   return {
     props: {
       categories: categoryData.contents,
       tags: tagData.contents,
+      publicKey: publicKey,
     },
   }
 }
