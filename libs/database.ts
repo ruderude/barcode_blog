@@ -6,6 +6,7 @@ export type CommentInput = {
     blogId: string,
     name: string,
     comment: string,
+    createdAt: Date,
 }
 
 export async function createComment(params: CommentInput) {

@@ -4,11 +4,13 @@ import Head from 'next/head'
 import { client } from "../../libs/client"
 import { format } from 'date-fns'
 import SideBar from '../../components/layout/SideBar'
+import CommentList from '../../components/comment/CommentList'
 import styles from './Blog.module.scss'
 import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 import { FaTags } from 'react-icons/fa'
 
 const BlogId: NextPage<any> = ({ blog, categories, tags }) => {
+  console.log('blog', blog)
 
   const title = `バーコード・ブログ: ${blog.title}`
   const description = `バーコード・ブログ: ${blog.title}`
@@ -47,11 +49,18 @@ const BlogId: NextPage<any> = ({ blog, categories, tags }) => {
               }}
             />
           </div>
+
+          <hr />
+
+          
+          <CommentList blogId={blog.id} />
           
         </div>
 
         <SideBar categories={categories} tags={tags} />
       </div>
+
+      <br />
 
     </>
   )
