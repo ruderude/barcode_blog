@@ -16,6 +16,7 @@ const postComment = async (req: NextApiRequest, res: NextApiResponse) => {
         blogId: body.blogId,
         name: body.name,
         comment: body.comment,
+        createdAt: new Date(),
     })
 
     return res.status(200).json(comment)

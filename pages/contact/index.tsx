@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { client } from "../../libs/client"
@@ -7,7 +7,7 @@ import SideBar from '../../components/layout/SideBar'
 import styles from './Contact.module.scss'
 import emailjs from '@emailjs/browser'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { toast } from "react-toastify";
+import { toast } from "react-toastify"
 
 interface Inputs {
   to_name: string
@@ -63,14 +63,14 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
       publicKey
     )
       .then((result) => {
-        console.log(result.text);
+        console.log(result.text)
         toast('お問い合わせメールを送信しました！')
         clearForm()
       }, (error) => {
-        console.log(error.text);
+        console.log(error.text)
         toast.error('メール送信に失敗しました！')
-      });
-  };
+      })
+  }
   
   return (
     <>
@@ -99,7 +99,7 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
                 <tbody>
                   <tr>
                     <td className={styles.form_item}>
-                      <label htmlFor="to_name">氏名&nbsp;<span className={styles.badge}>必須</span></label>
+                      <label htmlFor="to_name">氏名 <span className={styles.badge}>必須</span></label>
                     </td>
                     <td className={styles.form_body}>
                       <input
@@ -128,7 +128,7 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
 
                   <tr>
                     <td className={styles.form_item}>
-                      <label htmlFor="to_email">メールアドレス&nbsp;<span className={styles.badge}>必須</span></label>
+                      <label htmlFor="to_email">メールアドレス <span className={styles.badge}>必須</span></label>
                     </td>
                     <td className={styles.form_body}>
                       <input
@@ -164,7 +164,7 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
 
                   <tr>
                     <td className={styles.form_item}>
-                      <label>本文&nbsp;<span className={styles.badge}>必須</span></label>
+                      <label>本文 <span className={styles.badge}>必須</span></label>
                     </td>
                     <td className={styles.form_body}>
                       <textarea
@@ -204,7 +204,7 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
                     },
                   })}/>
                 <button type="submit" className={styles.submit_button} id="submit">
-                  送信する
+                  問い合わせを送信する
                 </button>
               </div>
 
