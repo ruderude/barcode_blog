@@ -27,7 +27,7 @@ const Comment: React.FC<any> = ({commentData}) => {
       </div>
       
       <div>
-        {commentLines.map((line, index) => (
+        {commentLines.map((line: any, index: number) => (
           <React.Fragment key={index}>
             {line}
             {index < commentLines.length - 1 && <br />}
