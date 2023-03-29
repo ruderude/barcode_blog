@@ -1,13 +1,5 @@
-import { createComment, fetchComments } from "@/libs/database"
+import { createComment } from "@/libs/database"
 import type { NextApiRequest, NextApiResponse } from "next"
-
-const getComments = async (req: NextApiRequest, res: NextApiResponse) => {
-  const body = req.body
-
-  const comments = await fetchComments()
-
-  return res.status(200).json(comments)
-}
 
 const postComment = async (req: NextApiRequest, res: NextApiResponse) => {
     const body = req.body
@@ -24,8 +16,6 @@ const postComment = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const apiRequest = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
-    case "GET":
-      return await getComments(req, res)
     case "POST":
       return await postComment(req, res)
     default:

@@ -74,7 +74,7 @@ const CommentList: React.FC<any> = ({ blogId }) => {
 
   const getComments = useCallback(async () => {
     axios
-      .get(RequestUrl)
+      .get(`${RequestUrl}/${blogId}`)
       .then((response) => {
         console.log('response', response.data)
         setComments(response.data)
@@ -82,7 +82,7 @@ const CommentList: React.FC<any> = ({ blogId }) => {
       .catch((error) => {
         console.log('error', error)
       })
-  }, [RequestUrl])
+  }, [RequestUrl, blogId])
 
   useEffect(() => {
     getComments()
@@ -93,7 +93,7 @@ const CommentList: React.FC<any> = ({ blogId }) => {
       <h3>コメント一覧</h3>
 
       {
-        comments.map((comment) => <div key={comment.id}><Comment commentData={comment} /></div>)
+        comments.map((comment) => <React.Fragment key={comment.id}><Comment commentData={comment} /></React.Fragment>)
       }
 
       <div className={styles.form}>
