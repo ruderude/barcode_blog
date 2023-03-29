@@ -11,7 +11,9 @@ interface CommentData {
 }
 
 const Comment: React.FC<any> = ({commentData}) => {
-  console.log('commentData', commentData)
+  // console.log('commentData', commentData)
+
+  const commentLines = commentData.comment.split("\n");
 
   return (
     <div className={styles.comment}>
@@ -25,7 +27,12 @@ const Comment: React.FC<any> = ({commentData}) => {
       </div>
       
       <div>
-        {commentData.comment.replace(/\r?\n/g, '<br>')}
+        {commentLines.map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            {index < commentLines.length - 1 && <br />}
+          </React.Fragment>
+        ))}
       </div>
       <hr />
     </div>

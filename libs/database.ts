@@ -13,6 +13,12 @@ export async function createComment(params: CommentInput) {
     return await prisma.comment.create({data: params});
 }
 
-export async function fetchComments() {
-  return await prisma.comment.findMany();
+export async function fetchComments(blogId: string) {
+  return await prisma.comment.findMany(
+    {
+      where: {
+        blogId: blogId
+      }
+    }
+  );
 }
