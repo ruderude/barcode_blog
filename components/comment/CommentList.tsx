@@ -21,7 +21,6 @@ interface CommentData {
 }
 
 const CommentList: React.FC<any> = ({ blogId }) => {
-  console.log('process.env.NEXT_PUBLIC_BASE_URL', process.env.NEXT_PUBLIC_BASE_URL)
 
   const RequestUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment`
   const [comments, setComments] = useState<CommentData[]>([])

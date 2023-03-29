@@ -25,7 +25,7 @@ const Comment: React.FC<any> = ({commentData}) => {
       </div>
       
       <div>
-        {commentData.comment}
+        {commentData.comment.replace(/\r?\n/g, '<br>')}
       </div>
       <hr />
     </div>
