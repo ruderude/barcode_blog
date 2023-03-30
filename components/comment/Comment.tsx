@@ -22,7 +22,7 @@ const Comment: React.FC<any> = ({commentData}) => {
           名前：{commentData.name}
         </div>
         <div className={styles.date}>
-          {commentData.createdAt && format(new Date(commentData.createdAt), 'yyyy年MM月dd日')}
+          {commentData.createdAt && format(new Date(commentData.createdAt), 'yyyy年MM月dd日 HH:mm')}
         </div>
       </div>
       

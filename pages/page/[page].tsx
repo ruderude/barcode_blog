@@ -2,13 +2,13 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.scss'
-import { client } from "../libs/client"
-import SideBar from '../components/layout/SideBar'
-import Card from '../components/elements/Card'
-import Pagination from '../components/elements/Pagination'
+import styles from '../../styles/Home.module.scss'
+import { client } from "../../libs/client"
+import SideBar from '../../components/layout/SideBar'
+import Card from '../../components/elements/Card'
+import Pagination from '../../components/elements/Pagination'
 
-const Home: NextPage<any> = ({ blogs, categories, tags, totalCount, perPage }) => {
+const HomePage: NextPage<any> = ({ blogs, categories, tags, totalCount, perPage, currentPage }) => {
 
   const title = `バーコード・ブログ: トップページ、ブログ一覧`
   const description = `バーコード・ブログ: トップページ、ブログ一覧`
@@ -48,9 +48,8 @@ const Home: NextPage<any> = ({ blogs, categories, tags, totalCount, perPage }) =
           <br />
 
           <div className="center">
-            <Pagination area={area} perPage={perPage} totalCount={totalCount} currentPage={1} />
+            <Pagination area={area} perPage={perPage} totalCount={totalCount} currentPage={currentPage} />
           </div>
-          
 
         </div>
 
@@ -60,11 +59,28 @@ const Home: NextPage<any> = ({ blogs, categories, tags, totalCount, perPage }) =
   )
 }
 
-export const getStaticProps = async () => {
+export const getStaticPaths = async () => {
   // ページネーション用
   const PER_PAGE = process.env.PER_PAGE as unknown as number
 
-  const data = await client.get({ endpoint: "blog", queries: { offset: 0, limit: PER_PAGE } })
+  const repos = await client.get({ endpoint: "blog" })
+
+  // console.log('PER_PAGE', PER_PAGE)
+  // console.log('repos.totalCount', repos.totalCount)
+
+  const range = (start: number, end: number) => [...Array(end - start + 1)].map((_, i) => start + i);
+
+  const paths = range(1, Math.ceil(repos.totalCount / PER_PAGE)).map((repo) => `/page/${repo}`);
+
+  return { paths, fallback: false };
+}
+
+export const getStaticProps = async (context: any) => {
+  // ページネーション用
+  const PER_PAGE = process.env.PER_PAGE as unknown as number
+  const PAGE = context.params.page as number;
+
+  const data = await client.get({ endpoint: "blog", queries: { offset: (PAGE - 1) * PER_PAGE, limit: PER_PAGE } })
   const categoryData = await client.get({ endpoint: "categories" })
   const tagData = await client.get({ endpoint: "tags" })
   console.log(data)
@@ -76,8 +92,9 @@ export const getStaticProps = async () => {
       tags: tagData.contents,
       totalCount: data.totalCount,
       perPage: PER_PAGE,
+      currentPage: PAGE,
     },
   }
 }
 
-export default Home
+export default HomePage

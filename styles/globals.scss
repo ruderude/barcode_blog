@@ -56,6 +56,12 @@ a {
 }
 
 // 便利共用CSS
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .mt-1 {
   margin-top: 10px;
 }
