@@ -6,15 +6,7 @@ import SideBar from '../../../components/layout/SideBar'
 import Card from '../../../components/elements/Card'
 import styles from './Category.module.scss'
 import { BsFillBookmarkHeartFill } from 'react-icons/bs'
-
-interface CategoryType {
-  id: string
-  createdAt: string
-  name: string
-  publishedAt: string
-  revisedAt: string
-  updatedAt: string
-}
+import { CategoryType } from '../../../types'
 
 const CategoryId: NextPage<any> = ({ blogs, categories, tags, category }) => {
   const title = `バーコード・ブログ: カテゴリー【${category.name}】`

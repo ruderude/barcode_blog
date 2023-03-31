@@ -6,10 +6,13 @@ import SideBar from '../../../components/layout/SideBar'
 import Card from '../../../components/elements/Card'
 import styles from './Tags.module.scss'
 import { FaTags } from 'react-icons/fa'
+import { TagType } from '../../../types'
 
 const TagId: NextPage<any> = ({ blogs, categories, tags, tag }) => {
   const title = `バーコード・ブログ: ${tag.name}}`
   const description = `バーコード・ブログ: ${tag.name}`
+
+  tags.sort((a: TagType, b: TagType) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime())
 
   return (
     <>

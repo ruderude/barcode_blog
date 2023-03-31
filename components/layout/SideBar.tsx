@@ -5,8 +5,14 @@ import Image from 'next/image'
 import styles from './SideBar.module.scss'
 import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 import { FaTags } from 'react-icons/fa'
+import { CategoryType, TagType } from '../../types'
 
 const SideBar: NextPage<any> = ({ categories, tags }) => {
+
+  // ソート
+  categories.sort((a: CategoryType, b: CategoryType) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime())
+  tags.sort((a: TagType, b: TagType) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime())
+  
 
   return (
     <>

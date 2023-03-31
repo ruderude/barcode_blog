@@ -1,4 +1,21 @@
-export {}
+export interface CategoryType {
+  id: string
+  name: string
+  createdAt: string
+  publishedAt: string
+  revisedAt: string
+  updatedAt: string
+}
+
+export interface TagType {
+  id: string
+  name: string
+  createdAt: string
+  publishedAt: string
+  revisedAt: string
+  updatedAt: string
+}
+  
 // export interface Blog {
 //   id: string
 //   title: string
