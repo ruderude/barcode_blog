@@ -1,45 +1,16 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from "next/link"
-import { client } from "../../libs/client"
-import SideBar from '../../components/layout/SideBar'
-import Card from '../../components/elements/Card'
-import styles from './Category.module.scss'
+import { client } from "../../../libs/client"
+import SideBar from '../../../components/layout/SideBar'
+import Card from '../../../components/elements/Card'
+import styles from '../Category.module.scss'
 import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 
 const CategoryId: NextPage<any> = ({ blogs, categories, tags, category }) => {
   const title = `バーコード・ブログ: カテゴリー【${category.name}】`
   const description = `バーコード・ブログ: カテゴリー【${category.name}】`
 
-  if (blogs.length === 0) {
-    return <>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-      </Head>
-
-      <header className={styles.hero}>
-        <div className={styles.bg}>
-          <h1>Category</h1>
-          <p>{category.name}</p>
-        </div>
-      </header>
-
-      <div className="container">
-        <div className="main">
-
-          <h2 className='page_title'>
-            カテゴリー：{category.name}
-          </h2>
-
-          <p>ブログコンテンツがありません</p>
-        </div>
-
-        <SideBar categories={categories} tags={tags} />
-      </div>
-
-    </>
-  }
   return (
     <>
       <Head>
@@ -83,7 +54,10 @@ const CategoryId: NextPage<any> = ({ blogs, categories, tags, category }) => {
           </div>
 
           <div className={styles.card_container}>
-            {blogs.map((blog: any) => (
+            {blogs.length === 0 ?
+              (<div className='margin_center my-10'>ブログコンテンツがありません</div>)
+              :
+              blogs.map((blog: any) => (
               <div className={styles.card_box} key={blog.id}>
                 <Card blog={blog} />
               </div>
@@ -107,11 +81,11 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async (context: any) => {
-  const id = context.params.id
-  const data = await client.get({ endpoint: "blog", queries: { filters: `category[equals]${id}` } })
+  const categoryPath = context.params.category
+  const data = await client.get({ endpoint: "blog", queries: { filters: `category[equals]${categoryPath}` } })
   const categoryData = await client.get({ endpoint: "categories" })
   const tagData = await client.get({ endpoint: "tags" })
-  const category = await client.get({ endpoint: "categories", contentId: id })
+  const category = await client.get({ endpoint: "categories", contentId: categoryPath })
 
   return {
     props: {
