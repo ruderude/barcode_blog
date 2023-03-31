@@ -51,7 +51,6 @@ const Home: NextPage<any> = ({ blogs, categories, tags, totalCount, perPage }) =
             <Pagination area={area} perPage={perPage} totalCount={totalCount} currentPage={1} />
           </div>
           
-
         </div>
 
         <SideBar categories={categories} tags={tags} />
