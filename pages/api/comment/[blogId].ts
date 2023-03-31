@@ -3,7 +3,6 @@ import type { NextApiRequest, NextApiResponse } from "next"
 
 const getComments = async (req: NextApiRequest, res: NextApiResponse) => {
   const { blogId } = req.query
-  console.log('blogId', blogId)
 
   if (blogId) {
     const comments = await fetchComments(blogId as string)

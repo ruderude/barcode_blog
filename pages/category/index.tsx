@@ -8,8 +8,6 @@ const Category: NextPage<any> = ({ categories }) => {
   const title = `バーコード・ブログ: カテゴリー一覧`
   const description = `バーコード・ブログ: カテゴリー一覧`
 
-  console.log('categories: ', categories[0].id)
-
   const router = useRouter()
   const url = `/category/${categories[0].id}`
 

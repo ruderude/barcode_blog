@@ -41,10 +41,8 @@ const CommentList: React.FC<any> = ({ blogId }) => {
   }
 
   const sendForm: SubmitHandler<Inputs> = (data) => {
-    console.log('data', data)
     const check = data.check
     if (check) {
-      console.log('check', check)
       toast.error('コメントの投稿に失敗しました！')
       return
     }
@@ -56,12 +54,9 @@ const CommentList: React.FC<any> = ({ blogId }) => {
       createdAt: new Date(),
     }
 
-    console.log('params', params)
-
     axios
       .post(RequestUrl, params)
       .then((response) => {
-        console.log('response', response.data)
         toast('コメントを投稿しました！')
         clearForm()
         getComments()
@@ -76,7 +71,6 @@ const CommentList: React.FC<any> = ({ blogId }) => {
     axios
       .get(`${RequestUrl}/${blogId}`)
       .then((response) => {
-        console.log('response', response.data)
         setComments(response.data)
       })
       .catch((error) => {
