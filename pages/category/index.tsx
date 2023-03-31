@@ -11,8 +11,7 @@ const Category: NextPage<any> = ({ categories }) => {
   console.log('categories: ', categories[0].id)
 
   const router = useRouter()
-  const first = categories.length - 1
-  const url = `/category/${categories[first].id}`
+  const url = `/category/${categories[0].id}`
 
   useEffect(() => {
     router.push(url)
@@ -29,7 +28,7 @@ const Category: NextPage<any> = ({ categories }) => {
 }
 
 export const getStaticProps = async () => {
-  const categoryData = await client.get({ endpoint: "categories" })
+  const categoryData = await client.get({ endpoint: "categories", queries: { orders: 'publishedAt' } })
 
   return {
     props: {

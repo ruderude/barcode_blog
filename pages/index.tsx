@@ -63,10 +63,9 @@ export const getStaticProps = async () => {
   // ページネーション用
   const PER_PAGE = process.env.PER_PAGE as unknown as number
 
-  const data = await client.get({ endpoint: "blog", queries: { offset: 0, limit: PER_PAGE } })
-  const categoryData = await client.get({ endpoint: "categories" })
-  const tagData = await client.get({ endpoint: "tags" })
-  console.log(data)
+  const data = await client.get({ endpoint: "blog", queries: { offset: 0, limit: PER_PAGE, orders: '-publishedAt' } })
+  const categoryData = await client.get({ endpoint: "categories", queries: { orders: 'publishedAt' } })
+  const tagData = await client.get({ endpoint: "tags", queries: { orders: 'publishedAt' } })
 
   return {
     props: {
