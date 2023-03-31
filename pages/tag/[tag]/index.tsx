@@ -4,7 +4,7 @@ import Link from "next/link"
 import { client } from "../../../libs/client"
 import SideBar from '../../../components/layout/SideBar'
 import Card from '../../../components/elements/Card'
-import styles from '../Tags.module.scss'
+import styles from './Tags.module.scss'
 import { FaTags } from 'react-icons/fa'
 
 const TagId: NextPage<any> = ({ blogs, categories, tags, tag }) => {

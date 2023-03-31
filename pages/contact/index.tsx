@@ -27,9 +27,6 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
     formState: { errors },
   } = useForm<Inputs>()
 
-  console.log('errors', errors)
-  console.log("watch:", watch("to_name"))
-
   const clearForm = () => {
     const to_name = document.getElementById('to_name') as HTMLInputElement
     const to_email = document.getElementById('to_email') as HTMLInputElement
@@ -45,7 +42,6 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
     // console.log('data', data)
     const check = data.check
     if (check) {
-      console.log('check', check)
       toast.error('メール送信に失敗しました！')
       return
     }
@@ -63,7 +59,6 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
       publicKey
     )
       .then((result) => {
-        console.log(result.text)
         toast('お問い合わせメールを送信しました！')
         clearForm()
       }, (error) => {

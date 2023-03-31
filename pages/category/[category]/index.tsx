@@ -4,12 +4,23 @@ import Link from "next/link"
 import { client } from "../../../libs/client"
 import SideBar from '../../../components/layout/SideBar'
 import Card from '../../../components/elements/Card'
-import styles from '../Category.module.scss'
+import styles from './Category.module.scss'
 import { BsFillBookmarkHeartFill } from 'react-icons/bs'
+
+interface CategoryType {
+  id: string
+  createdAt: string
+  name: string
+  publishedAt: string
+  revisedAt: string
+  updatedAt: string
+}
 
 const CategoryId: NextPage<any> = ({ blogs, categories, tags, category }) => {
   const title = `バーコード・ブログ: カテゴリー【${category.name}】`
   const description = `バーコード・ブログ: カテゴリー【${category.name}】`
+
+  categories.sort((a: CategoryType, b: CategoryType) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime())
 
   return (
     <>
