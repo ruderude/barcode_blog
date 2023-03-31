@@ -27,7 +27,7 @@ const Tags: NextPage<any> = ({ tags }) => {
 }
 
 export const getStaticProps = async () => {
-  const tagData = await client.get({ endpoint: "tags" })
+  const tagData = await client.get({ endpoint: "tags", queries: { orders: 'publishedAt' } })
 
   return {
     props: {

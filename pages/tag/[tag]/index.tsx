@@ -83,9 +83,9 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: any) => {
   const tagPath = context.params.tag
-  const data = await client.get({ endpoint: "blog", queries: { filters: `tags[contains]${tagPath}` } })
-  const categoryData = await client.get({ endpoint: "categories" })
-  const tagData = await client.get({ endpoint: "tags" })
+  const data = await client.get({ endpoint: "blog", queries: { filters: `tags[contains]${tagPath}`, orders: '-publishedAt' } })
+  const categoryData = await client.get({ endpoint: "categories", queries: { orders: 'publishedAt' } })
+  const tagData = await client.get({ endpoint: "tags", queries: { orders: 'publishedAt' } })
   const tag = tagData.contents.find((tag: any) => tag.id === tagPath)
 
   return {

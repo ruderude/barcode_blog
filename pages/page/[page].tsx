@@ -62,11 +62,7 @@ const HomePage: NextPage<any> = ({ blogs, categories, tags, totalCount, perPage,
 export const getStaticPaths = async () => {
   // ページネーション用
   const PER_PAGE = process.env.PER_PAGE as unknown as number
-
   const repos = await client.get({ endpoint: "blog" })
-
-  // console.log('PER_PAGE', PER_PAGE)
-  // console.log('repos.totalCount', repos.totalCount)
 
   const range = (start: number, end: number) => [...Array(end - start + 1)].map((_, i) => start + i);
 
@@ -80,9 +76,9 @@ export const getStaticProps = async (context: any) => {
   const PER_PAGE = process.env.PER_PAGE as unknown as number
   const PAGE = context.params.page as number;
 
-  const data = await client.get({ endpoint: "blog", queries: { offset: (PAGE - 1) * PER_PAGE, limit: PER_PAGE } })
-  const categoryData = await client.get({ endpoint: "categories" })
-  const tagData = await client.get({ endpoint: "tags" })
+  const data = await client.get({ endpoint: "blog", queries: { offset: (PAGE - 1) * PER_PAGE, limit: PER_PAGE, orders: '-publishedAt' } })
+  const categoryData = await client.get({ endpoint: "categories", queries: { orders: 'publishedAt' } })
+  const tagData = await client.get({ endpoint: "tags", queries: { orders: 'publishedAt' } })
   console.log(data)
 
   return {
