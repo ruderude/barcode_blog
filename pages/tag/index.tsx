@@ -9,8 +9,7 @@ const Tags: NextPage<any> = ({ tags }) => {
   const description = `バーコード・ブログ: タグ一覧`
 
   const router = useRouter()
-  const first = tags.length - 1
-  const url = `/tag/${tags[first].id}`
+  const url = `/tag/${tags[0].id}`
 
   useEffect(() => {
     router.push(url)
