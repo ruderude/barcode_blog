@@ -15,6 +15,14 @@ export interface TagType {
   revisedAt: string
   updatedAt: string
 }
+
+export interface CommentData {
+  id: number
+  blogId: string
+  name: string
+  comment: string
+  createdAt: string
+}
   
 // export interface Blog {
 //   id: string

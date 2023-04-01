@@ -1,23 +1,24 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from "next/link"
-import { client } from "../../../libs/client"
-import SideBar from '../../../components/layout/SideBar'
-import Card from '../../../components/elements/Card'
-import styles from './Category.module.scss'
+import { client } from "../../../../libs/client"
+import SideBar from '../../../../components/layout/SideBar'
+import Card from '../../../../components/elements/Card'
+import styles from '../Category.module.scss'
 import { BsFillBookmarkHeartFill } from 'react-icons/bs'
-import { CategoryType } from '../../../types'
-import Pagination from '../../../components/elements/Pagination'
+import { CategoryType } from '../../../../types'
+import Pagination from '../../../../components/elements/Pagination'
 
-const Category: NextPage<any> = ({ blogs, categories, tags, category, totalCount, perPage }) => {
+const CategoryId: NextPage<any> = ({ blogs, categories, tags, category, totalCount, perPage, currentPage }) => {
   const title = `バーコード・ブログ: カテゴリー【${category.name}】`
   const description = `バーコード・ブログ: カテゴリー【${category.name}】`
 
   // ページネーション用
   const area = 'category'
-  console.log('category', category)
 
   categories.sort((a: CategoryType, b: CategoryType) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime())
+
+  console.log('blogs.length', blogs.length)
 
   return (
     <>
@@ -76,12 +77,13 @@ const Category: NextPage<any> = ({ blogs, categories, tags, category, totalCount
 
           {(blogs.length !== 0) &&
             <div className="center">
-              <Pagination area={area} perPage={perPage} totalCount={totalCount} currentPage={1}  genre={category.id}/>
+              <Pagination area={area} perPage={perPage} totalCount={totalCount} currentPage={currentPage}  genre={category.id}/>
             </div>
           }
 
         </div>
         
+
         <SideBar categories={categories} tags={tags} />
       </div>
     </>
@@ -91,14 +93,28 @@ const Category: NextPage<any> = ({ blogs, categories, tags, category, totalCount
 export const getStaticPaths = async () => {
   const data = await client.get({ endpoint: "categories" })
 
-  const paths = data.contents.map((content: any) => `/category/${content.id}`)
+  // ページネーション用
+  const PER_PAGE = process.env.PER_PAGE as unknown as number
+
+  const repos = await client.get({ endpoint: "blog" })
+
+  const range = (start: number, end: number) => [...Array(end - start + 1)].map((_, i) => start + i);
+
+  const pathsData = data.contents.map((content: any) => {
+    return range(1, Math.ceil(repos.totalCount / PER_PAGE)).map((repo) => `/category/${content.id}/page/${repo}`)
+  })
+
+  const paths = pathsData.flat()
+
+  console.log('paths', paths)
+
   return { paths, fallback: false }
 }
 
 export const getStaticProps = async (context: any) => {
   // ページネーション用
   const PER_PAGE = process.env.PER_PAGE as unknown as number
-  const PAGE = 1
+  const PAGE = context.params.page as number;
 
   const categoryPath = context.params.category
   const data = await client.get({ endpoint: "blog", queries: { filters: `category[equals]${categoryPath}`, offset: (PAGE - 1) * PER_PAGE, limit: PER_PAGE, orders: '-publishedAt' } })
@@ -114,8 +130,9 @@ export const getStaticProps = async (context: any) => {
       category: category,
       totalCount: data.totalCount,
       perPage: PER_PAGE,
+      currentPage: PAGE,
     },
   }
 }
 
-export default Category
+export default CategoryId

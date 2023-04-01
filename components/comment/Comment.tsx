@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { format } from 'date-fns'
 import styles from './Comment.module.scss'
+import { CommentData } from '../../types'
 
-interface CommentData {
-  id: number
-  blogId: string
-  name: string
-  comment: string
-  createdAt: string
+interface CommentRapper {
+  commentData: CommentData
 }
 
-const Comment: React.FC<any> = ({commentData}) => {
-  // console.log('commentData', commentData)
+const Comment: React.FC<CommentRapper> = ({ commentData }) => {
 
   const commentLines = commentData.comment.split("\n");
 

@@ -47,9 +47,11 @@ const HomePage: NextPage<any> = ({ blogs, categories, tags, totalCount, perPage,
 
           <br />
 
-          <div className="center">
-            <Pagination area={area} perPage={perPage} totalCount={totalCount} currentPage={currentPage} />
-          </div>
+          {(blogs.length !== 0) &&
+            <div className="center">
+              <Pagination area={area} perPage={perPage} totalCount={totalCount} currentPage={currentPage}/>
+            </div>
+          }
 
         </div>
 

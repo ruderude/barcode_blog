@@ -8,17 +8,18 @@ interface PaginationProps {
   perPage: number
   totalCount: number
   currentPage?: number
+  genre?: string
 }
 
-const Pagination: React.FC<PaginationProps> = ({ area, perPage, totalCount, currentPage }) => {
+const Pagination: React.FC<PaginationProps> = ({ area, perPage, totalCount, currentPage, genre = null }) => {
 
   let path = ''
   switch (area) {
     case 'category':
-      path = '/category'
+      path = `/category/${genre}`
       break
     case 'tag':
-      path = '/tag'
+      path = `/tag/${genre}`
       break
     default:
       path = ''
