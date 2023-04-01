@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import type { NextPage } from 'next'
+import type { NextPage, GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
 import { client } from "../../libs/client"
 import { format } from 'date-fns'
@@ -66,22 +66,21 @@ const BlogId: NextPage<any> = ({ blog, categories, tags }) => {
   )
 }
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const data = await client.get({ endpoint: "blog" })
-
   const paths = data.contents.map((content: any) => `/blog/${content.id}`)
   return { paths, fallback: false }
 }
 
-export const getStaticProps = async (context: any) => {
+export const getStaticProps: GetStaticProps = async (context: any) => {
   const id = context.params.id
-  const data = await client.get({ endpoint: "blog", contentId: id })
+  const blog = await client.get({ endpoint: "blog", contentId: id })
   const categoryData = await client.get({ endpoint: "categories" })
   const tagData = await client.get({ endpoint: "tags" })
 
   return {
     props: {
-      blog: data,
+      blog: blog,
       categories: categoryData.contents,
       tags: tagData.contents,
     },

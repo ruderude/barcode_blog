@@ -5,6 +5,7 @@ import Comment from './Comment'
 import styles from './CommentList.module.scss'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { toast } from "react-toastify"
+import { CommentData } from '../../types'
 
 interface Inputs {
   name: string
@@ -12,15 +13,15 @@ interface Inputs {
   check: string | null
 }
 
-interface CommentData {
-  id: number
-  blogId: string
-  name: string
-  comment: string
-  createdAt: string
+interface BlogIdRapper {
+  blogId: Blog['id']
 }
 
-const CommentList: React.FC<any> = ({ blogId }) => {
+interface Blog {
+  id: string
+}
+
+const CommentList: React.FC<BlogIdRapper> = ({ blogId }) => {
 
   const RequestUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment`
   const [comments, setComments] = useState<CommentData[]>([])
@@ -87,7 +88,7 @@ const CommentList: React.FC<any> = ({ blogId }) => {
       <h3>コメント一覧</h3>
 
       {
-        comments.map((comment) => <React.Fragment key={comment.id}><Comment commentData={comment} /></React.Fragment>)
+        comments.map((comment) => <Comment commentData={comment} key={comment.id} />)
       }
 
       <div className={styles.form}>
