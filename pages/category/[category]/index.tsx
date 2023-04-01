@@ -15,7 +15,6 @@ const Category: NextPage<any> = ({ blogs, categories, tags, category, totalCount
 
   // ページネーション用
   const area = 'category'
-  console.log('category', category)
 
   categories.sort((a: CategoryType, b: CategoryType) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime())
 

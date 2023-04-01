@@ -103,10 +103,7 @@ export const getStaticPaths = async () => {
   const pathsData = data.contents.map((content: any) => {
     return range(1, Math.ceil(repos.totalCount / PER_PAGE)).map((repo) => `/category/${content.id}/page/${repo}`)
   })
-
   const paths = pathsData.flat()
-
-  console.log('paths', paths)
 
   return { paths, fallback: false }
 }

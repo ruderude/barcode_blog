@@ -66,7 +66,6 @@ export const getStaticProps = async () => {
   const data = await client.get({ endpoint: "blog", queries: { offset: 0, limit: PER_PAGE, orders: '-publishedAt' } })
   const categoryData = await client.get({ endpoint: "categories", queries: { orders: 'publishedAt' } })
   const tagData = await client.get({ endpoint: "tags", queries: { orders: 'publishedAt' } })
-  console.log('categoryData: ', categoryData)
 
   return {
     props: {
