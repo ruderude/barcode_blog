@@ -1,15 +1,15 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from "next/link"
-import { client } from "../../../libs/client"
-import SideBar from '../../../components/layout/SideBar'
-import Card from '../../../components/elements/Card'
-import styles from './Tags.module.scss'
+import { client } from "../../../../libs/client"
+import SideBar from '../../../../components/layout/SideBar'
+import Card from '../../../../components/elements/Card'
+import styles from '../Tags.module.scss'
 import { FaTags } from 'react-icons/fa'
-import { TagType } from '../../../types'
-import Pagination from '../../../components/elements/Pagination'
+import { TagType } from '../../../../types'
+import Pagination from '../../../../components/elements/Pagination'
 
-const TagId: NextPage<any> = ({ blogs, categories, tags, tag, totalCount, perPage }) => {
+const TagId: NextPage<any> = ({ blogs, categories, tags, tag, totalCount, perPage, currentPage }) => {
   const title = `バーコード・ブログ: ${tag.name}}`
   const description = `バーコード・ブログ: ${tag.name}`
 
@@ -76,7 +76,7 @@ const TagId: NextPage<any> = ({ blogs, categories, tags, tag, totalCount, perPag
 
           {(blogs.length !== 0) &&
             <div className="center">
-              <Pagination area={area} perPage={perPage} totalCount={totalCount} currentPage={1}  genre={tag.id}/>
+              <Pagination area={area} perPage={perPage} totalCount={totalCount} currentPage={currentPage}  genre={tag.id}/>
             </div>
           }
           
@@ -92,14 +92,26 @@ const TagId: NextPage<any> = ({ blogs, categories, tags, tag, totalCount, perPag
 export const getStaticPaths = async () => {
   const data = await client.get({ endpoint: "tags" })
 
-  const paths = data.contents.map((content: any) => `/tag/${content.id}`)
+  // ページネーション用
+  const PER_PAGE = process.env.PER_PAGE as unknown as number
+
+  const repos = await client.get({ endpoint: "blog" })
+
+  const range = (start: number, end: number) => [...Array(end - start + 1)].map((_, i) => start + i);
+
+  const pathsData = data.contents.map((content: any) => {
+    return range(1, Math.ceil(repos.totalCount / PER_PAGE)).map((repo) => `/tag/${content.id}/page/${repo}`)
+  })
+
+  const paths = pathsData.flat()
+
   return { paths, fallback: false }
 }
 
 export const getStaticProps = async (context: any) => {
   // ページネーション用
   const PER_PAGE = process.env.PER_PAGE as unknown as number
-  const PAGE = 1
+  const PAGE = context.params.page as number
 
   const tagPath = context.params.tag
   const data = await client.get({ endpoint: "blog", queries: { filters: `tags[contains]${tagPath}`, offset: (PAGE - 1) * PER_PAGE, limit: PER_PAGE, orders: '-publishedAt' } })
@@ -115,6 +127,7 @@ export const getStaticProps = async (context: any) => {
       tag: tag,
       totalCount: data.totalCount,
       perPage: PER_PAGE,
+      currentPage: PAGE
     },
   }
 }

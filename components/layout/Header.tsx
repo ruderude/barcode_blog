@@ -9,7 +9,6 @@ const Header = () => {
   const [nav, setNav] = useState<boolean>(false)
 
   const router = useRouter()
-  // console.log(router.pathname)
 
   const toggleNav = () => {
     setNav(!nav)

@@ -18,8 +18,6 @@ const CategoryId: NextPage<any> = ({ blogs, categories, tags, category, totalCou
 
   categories.sort((a: CategoryType, b: CategoryType) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime())
 
-  console.log('blogs.length', blogs.length)
-
   return (
     <>
       <Head>
@@ -111,7 +109,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context: any) => {
   // ページネーション用
   const PER_PAGE = process.env.PER_PAGE as unknown as number
-  const PAGE = context.params.page as number;
+  const PAGE = context.params.page as number
 
   const categoryPath = context.params.category
   const data = await client.get({ endpoint: "blog", queries: { filters: `category[equals]${categoryPath}`, offset: (PAGE - 1) * PER_PAGE, limit: PER_PAGE, orders: '-publishedAt' } })
