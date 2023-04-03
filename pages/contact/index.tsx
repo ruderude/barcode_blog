@@ -39,7 +39,6 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
   }
 
   const sendForm: SubmitHandler<Inputs> = (data) => {
-    // console.log('data', data)
     const check = data.check
     if (check) {
       toast.error('メール送信に失敗しました！')

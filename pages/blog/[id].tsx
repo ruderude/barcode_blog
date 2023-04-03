@@ -10,7 +10,6 @@ import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 import { FaTags } from 'react-icons/fa'
 
 const BlogId: NextPage<any> = ({ blog, categories, tags }) => {
-  // console.log('blog', blog)
 
   const title = `バーコード・ブログ: ${blog.title}`
   const description = `バーコード・ブログ: ${blog.title}`
