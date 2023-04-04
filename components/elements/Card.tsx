@@ -7,7 +7,6 @@ import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 import { FaTags } from 'react-icons/fa'
 
 const Card = ({ blog }: { blog: any }) => {
-  // console.log('blog', blog)
   const [createdAt, setCreatedAt] = useState<string>()
   const [updatedAt, setUpdatedAt] = useState<string>()
 
