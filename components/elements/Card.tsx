@@ -41,7 +41,7 @@ const Card = ({ blog }: { blog: any }) => {
             </div>
             <div className={styles.card__footer}>
               <div>
-               <BsFillBookmarkHeartFill color={'red'} />&nbsp;{blog.category.name}
+               <BsFillBookmarkHeartFill color={'red'} />&nbsp;{blog.category?.name}
               </div>
               <div>
                 {blog.tags.map((tag: any) => (
