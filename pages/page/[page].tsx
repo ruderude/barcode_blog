@@ -26,7 +26,7 @@ const HomePage: NextPage<any> = ({ blogs, categories, tags, totalCount, perPage,
       <header className={styles.hero}>
         <div className={styles.bg}>
           <h1>BarCode Blog</h1>
-          <p>厨二病プログラマの日記</p>
+          <p>バーテンエンジニアの日記</p>
         </div>
       </header>
 

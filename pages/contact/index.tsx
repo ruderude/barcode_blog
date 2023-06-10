@@ -106,8 +106,8 @@ const Contact: NextPage<any> = ({ categories, tags, publicKey, serviceId, templa
                             message: '入力が必須の項目です',
                           },
                           maxLength: {
-                            value: 20,
-                            message: '20文字以下で入力してください',
+                            value: 30,
+                            message: '30文字以下で入力してください',
                           },
                         })}
                       />
